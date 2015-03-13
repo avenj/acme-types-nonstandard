@@ -4,23 +4,25 @@ use strictures 2;
 
 use Scalar::Util 'isdual', 'reftype';
 
-use Type::Library   -base;
-use Type::Utils     -all;
-use Types::TypeTiny ();
+use Type::Library     -base;
+use Type::Utils       -all;
+use Types::TypeTiny   ();
+use Types::Standard   -types;
 
-use Types::Standard       -types;
-use List::Objects::Types  -types;
-
-# ConfusingDualVar whose stringy value must be a number different from the
-# numeric value
 declare ConfusingDualVar =>
   where {
     isdual($_)
-    && (my $s = "$_") =~ /^[0-9.]+$/
-    && (my $n = $_+0) ne "$_"
+    && "$_" =~ /^[0-9.]+$/   # yeah, I know
+    && $_+0 ne "$_"
   };
 
-# RefRefRef which must be a reference to a reference to a reference
+declare FortyTwo =>
+  as Int,
+  where { $_ == 42 };
+coerce FortyTwo =>
+  from Any,
+  via { 42 };
+
 declare RefRefRef =>
   where {
     ref $_
