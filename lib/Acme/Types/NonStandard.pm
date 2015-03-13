@@ -2,7 +2,7 @@ package Acme::Types::NonStandard;
 
 use strict; use warnings;
 
-use Scalar::Util 'isdual', 'reftype';
+use Scalar::Util 'isdual';
 
 use Type::Library     -base;
 use Type::Utils       -all;
@@ -34,6 +34,8 @@ Acme::Types::NonStandard - unbundled set of stupid types for Type::Tiny
 
 =head1 DESCRIPTION
 
+An attempt to provide totally useless types that L<Types::Standard> does not.
+
 =head3 ConfusingDualVar
 
 A dualvar (see L<Scalar::Util/dualvar>) whose stringy value must be a floating
@@ -53,7 +55,7 @@ An array that only contains C<undef> (but as many of them as you'd like!)
 =head3 RefRefRef
 
 A reference to a reference to a reference (to ensure adequate levels of
-indirection).
+indirection; see also: Cargill's quandry).
 
 =head1 AUTHOR
 
