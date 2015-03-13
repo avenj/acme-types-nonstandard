@@ -29,4 +29,9 @@ should_fail $orig,    RefRefRef;
 should_pass [undef,undef], ReallySparseArray;
 should_fail [undef, 1],    ReallySparseArray;
 
+my $h = +{ foo => [ 'bar' ], baz => 'quux' };
+$h->{foo}->[1] = $h->{foo};
+should_pass $h,                ProbableMemoryLeak;
+should_fail +{ foo => 'bar' }, ProbableMemoryLeak;
+
 done_testing

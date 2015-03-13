@@ -9,6 +9,8 @@ use Type::Utils       -all;
 use Types::TypeTiny   ();
 use Types::Standard   -types;
 
+use Devel::Cycle;
+
 declare ConfusingDualVar =>
   where { isdual($_) && "$_" =~ /^[0-9.]+$/ && $_+0 ne "$_" };
 
@@ -18,6 +20,13 @@ coerce  FortyTwo => from Any() => via { 42 };
 declare RefRefRef => where { ref $_ && ref ${ $_ } && ref ${ ${ $_ } } };
 
 declare ReallySparseArray => as ArrayRef[Undef];
+
+declare ProbableMemoryLeak =>
+  where {
+    my $yeah_probably = 0;
+    find_cycle($_, sub { $yeah_probably++ });
+    $yeah_probably
+  };
 
 
 print "I'm not sorry.\n" unless caller; 1;
@@ -47,6 +56,10 @@ confusion).
 The number 42. Always.
 
 Can be coerced from Any (to the number 42).
+
+=head3 ProbableMemoryLeak
+
+An object that contains cyclic references (per L</Devel::Cycle>).
 
 =head3 ReallySparseArray
 
