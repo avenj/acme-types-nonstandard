@@ -13,6 +13,10 @@ should_pass dualvar(2.2, 4.4),  ConfusingDualVar;
 should_fail dualvar(2, 'foo'),  ConfusingDualVar;
 should_fail dualvar(2, 2),      ConfusingDualVar;
 
+should_pass 42,                   FortyTwo;
+should_fail 24,                   FortyTwo;
+should_pass FortyTwo->coerce(''), FortyTwo;
+
 my $orig = 'foo';
 my $r = \$orig;
 my $rr = \$r;
@@ -24,6 +28,5 @@ should_fail $orig,    RefRefRef;
 
 should_pass [undef,undef], ReallySparseArray;
 should_fail [undef, 1],    ReallySparseArray;
-# FIXME coercion tests for ReallySparseArray
 
 done_testing
