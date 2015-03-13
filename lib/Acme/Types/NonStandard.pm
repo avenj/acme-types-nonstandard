@@ -1,6 +1,6 @@
 package Acme::Types::NonStandard;
 
-use strictures 2;
+use strict; use warnings;
 
 use Scalar::Util 'isdual', 'reftype';
 
@@ -10,25 +10,12 @@ use Types::TypeTiny   ();
 use Types::Standard   -types;
 
 declare ConfusingDualVar =>
-  where {
-    isdual($_)
-    && "$_" =~ /^[0-9.]+$/   # yeah, I know
-    && $_+0 ne "$_"
-  };
+  where { isdual($_) && "$_" =~ /^[0-9.]+$/ && $_+0 ne "$_" };
 
-declare FortyTwo =>
-  as Int,
-  where { $_ == 42 };
-coerce FortyTwo =>
-  from Any,
-  via { 42 };
+declare FortyTwo => as Int() => where { $_ == 42 };
+coerce  FortyTwo => from Any() => via { 42 };
 
-declare RefRefRef =>
-  where {
-    ref $_
-    && ref ${ $_ }
-    && ref ${ ${ $_ } }
-  };
+declare RefRefRef => where { ref $_ && ref ${ $_ } && ref ${ ${ $_ } } };
 
 declare ReallySparseArray => as ArrayRef[Undef];
 
