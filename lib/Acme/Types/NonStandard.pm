@@ -59,7 +59,7 @@ Can be coerced from Any (to the number 42).
 
 =head3 ProbableMemoryLeak
 
-An object that contains cyclic references (per L</Devel::Cycle>).
+An object that contains cyclic references (per L<Devel::Cycle>).
 
 =head3 ReallySparseArray
 
