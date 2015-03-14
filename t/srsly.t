@@ -3,8 +3,6 @@ use strict; use warnings;
 use Test::More;
 use Test::TypeTiny;
 
-use List::Objects::WithUtils;
-
 use Acme::Types::NonStandard -all;
 
 use Scalar::Util 'dualvar';
